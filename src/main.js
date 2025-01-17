@@ -113,12 +113,14 @@ const deal = (cardIdx, toPlayer, faceDown) => {
 };
 
 const createCardSrc = ({ card, suit }, faceDown) => {
+	const prefix = '/blackjack-deploy/cards/';
+
 	if (faceDown) {
-		return `/cards/1B.svg`;
+		return `${prefix}/1B.svg`;
 	} else if (card == 10) {
-		return `/cards/T${suit}.svg`;
+		return `${prefix}/T${suit}.svg`;
 	} else {
-		return `/cards/${card}${suit}.svg`;
+		return `${prefix}/${card}${suit}.svg`;
 	}
 };
 
