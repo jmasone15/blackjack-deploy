@@ -1,1 +1,1 @@
-# blackjack-deploy
+# blackjack-with-friends
