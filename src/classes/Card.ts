@@ -21,7 +21,7 @@ export class Card {
 
 	generateCardSrc(): string {
 		// Change for deployment.
-		const prefix = '/cards/';
+		const prefix = '/blackjack-deploy/cards/';
 
 		if (this.faceDown) {
 			return `${prefix}1B.svg`;
