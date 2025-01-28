@@ -3,28 +3,29 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="icon" type="image/svg+xml" href="/gambling-playing-cards-svgrepo-com.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite App</title>
+  <title>Blackjack with Friends</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 
 <body>
-
   <!-- Navbar & Logo Brand -->
   <nav class="navbar pt-0 pb-5">
-    <div class="container-fluid bg-primary">
-      <a class="navbar-brand text-light fs-3" href="#">
+    <div class="container-fluid bg-secondary">
+      <a class="navbar-brand text-light fs-3" href="/">
         <img src="/gambling-playing-cards-svgrepo-com.svg" alt="Logo" width="60" height="48" class="d-inline-block">
         Blackjack With Friends
       </a>
+      <div class="text-white">
+        <h4 id="money"></h4>
+      </div>
     </div>
   </nav>
 
   <!-- Modal -->
-  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel">
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header text-center">
@@ -33,17 +34,56 @@
         <div id="modal-body" class="modal-body">
         </div>
         <div class="modal-footer">
+          <button id="modal-button-change" class="btn btn-primary">Change Bet</button>
           <button id="modal-button" class="btn btn-success">Next Round</button>
         </div>
       </div>
     </div>
   </div>
 
+  <!-- Login Modal -->
+  <div id="login" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <form id="login-form" class="modal-content">
+        <div class="modal-header text-center">
+          <h1 class="modal-title fs-5">Welcome to Blackjack!</h1>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="nickname">Enter your name to sign up/login!</label>
+            <input id="nickname" type="text" class="form-control my-3" aria-describedby="emailHelp"
+              placeholder="Critters_R_Rad" required>
+          </div>
+          <div class="form-group">
+            <p id="validation" style="color: red;"></p>
+          </div>
+        </div>
+        <div class="modal-footer" id="modal-footer">
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="pre-game" class="container text-center mt-5 text-white">
+    <div class="row">
+      <div class="col">
+        <h1 class="blackjack-header mt-5 mb-2"><u>Blackjack</u></h1>
+        <h5 id="temp-val" class="blackjack-subheader mt-3 mb-5">
+          <i>Select your bet on the left and press <b>Start Hand</b> to begin!</i>
+        </h5>
+      </div>
+    </div>
+    <button id="hand-start" class="start-button fancy-button mx-2">Start Hand</button>
+    <a href="/leaderboard.html"><button id="leaderboard" class="start-button fancy-button mx-2">View
+        Leaderboard</button></a>
+  </div>
+
   <main class="container-fluid text-center text-white">
+
     <!-- Dealer Section -->
     <div class="row">
       <div class="container">
-        <h1><u>Dealer</u></h1>
         <div id="dealer-cards" class="row justify-content-center">
         </div>
         <div class="row mt-3">
@@ -51,32 +91,44 @@
         </div>
       </div>
     </div>
+
     <!-- Spacer -->
-    <div class="row align-items-center">
-      <div class="col spacer">
-      </div>
+    <div class="spacer">
     </div>
-    <!-- Player Section -->
+
+    <!-- User Section -->
     <div class="row">
       <div class="container">
-        <h1><u>Player</u></h1>
-        <div id="player-cards" class="row justify-content-center">
+        <div id="user-cards" class="row justify-content-center">
         </div>
         <div class="row mt-3">
-          <h4 id="player-score"></h4>
+          <h4 id="user-score"></h4>
         </div>
       </div>
     </div>
-    <!-- Button Section -->
-    <footer id="buttons" class="row d-none">
-      <div class="col">
-        <button type="button" id="hit" class="btn btn-primary btn-lg">Hit Me!</button>
-        <button type="button" id="stand" class="btn btn-danger btn-lg">I'm Good</button>
-      </div>
-    </footer>
   </main>
 
-  <script type="module" src="/src/main.js"></script>
+
+
+  <!-- Action Buttons -->
+  <aside id="buttons">
+    <button type="button" id="stand" role="button" class="disabled">Stand</button>
+    <button type="button" id="split" class="disabled">Split</button>
+    <button type="button" id="double" role="button" class="disabled">Double</button>
+    <button type="button" id="hit" class="disabled">Hit</button>
+  </aside>
+
+  <!-- Betting Buttons -->
+  <section class="bet" id="betting-buttons">
+    <button type="button" id="bet-1" data-value="1" role="button" class="blue-btn fancy-button">$1</button>
+    <button type="button" id="bet-5" data-value="5" role="button" class="blue-btn fancy-button">$5</button>
+    <button type="button" id="bet-10" data-value="10" role="button" class="green-btn fancy-button">$10</button>
+    <button type="button" id="bet-50" data-value="50" role="button" class="blue-btn fancy-button">$50</button>
+    <button type="button" id="bet-100" data-value="100" role="button" class="blue-btn fancy-button">$100</button>
+  </section>
+
+
+  <script type="module" src="/src/main.ts"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
     integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
     crossorigin="anonymous"></script>
